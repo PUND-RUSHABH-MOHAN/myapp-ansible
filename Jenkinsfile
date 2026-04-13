@@ -9,12 +9,16 @@ pipeline {
             }
         }
 
-        stage('Run Ansible Playbook') {
+        stage('Deploy with Ansible') {
             steps {
-                sh '''
-                    cd /var/lib/jenkins/workspace/${JOB_NAME}
-                    ansible-playbook -i inventory.ini site.yml
-                '''
+                ansiblePlaybook(
+                    playbook: 'site.yml',
+                    inventory: 'inventory.ini',
+                    credentialsId: 'app-servers-ssh-key',
+                    colorized: true,
+                    disableHostKeyChecking: true,
+                    extras: '-v'
+                )
             }
         }
     }
