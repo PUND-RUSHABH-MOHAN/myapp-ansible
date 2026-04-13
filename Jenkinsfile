@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     stages {
-
         stage('Checkout') {
             steps {
                 checkout scm
@@ -16,7 +15,7 @@ pipeline {
                     inventory: 'inventory.ini',
                     credentialsId: 'app-servers-ssh-key',
                     colorized: true,
-                    disableHostKeyChecking: true,
+                    disableHostKeyChecking: true,   // ← already have this
                     extras: '-v'
                 )
             }
